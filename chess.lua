@@ -847,7 +847,6 @@ function on.enterKey()
     if valid_move then
         move = {parse(translatePos(active_piece.originalX, active_piece.originalY)), parse(translatePos(selected_piece.x, selected_piece.y))}
 
-        print("move: ", move[1], move[2])
         if board[selected_piece.y][selected_piece.x] ~= nil then
             currentPiece = board[selected_piece.y][selected_piece.x]
             if currentPiece.team == "white" and turn == "black" then
@@ -881,9 +880,8 @@ function on.enterKey()
         assert(move)
         position = position:move(move)
         themove = translateMove(move)
-        print(themove[1][1], themove[1][2])
-        print(themove[2][1], themove[2][2])
         moving_piece = board[themove[1][2]][themove[1][1]]
+        board[themove[1][2]][themove[1][1]] = nil
         new_position = board[themove[2][2]][themove[2][1]]
         if new_position ~= nil then
             if new_position.team == "white" and turn == "black" then
@@ -1001,3 +999,4 @@ function translateMove(move)
     final_y = math.floor(final_pos / 10)
     return { { initial_x, 9 - (initial_y - 1) }, { final_x, 9 - (final_y - 1) } }
 end
+
